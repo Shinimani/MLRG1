@@ -61,3 +61,21 @@ animals = ['cat', 'dog', 'monkey']
 for idx, animal in enumerate(animals):
     print('#%d: %s' % (idx + 1, animal))
 # Prints "#1: cat", "#2: dog", "#3: monkey", each on its own line
+
+print()
+print()
+
+
+#list comprehension
+nums = [0, 1, 2, 3, 4]
+squares = [x ** 2 for x in nums]
+print(squares)   # Prints [0, 1, 4, 9, 16]
+
+print()
+
+nums = [0, 1, 2, 3, 4]
+even_squares = [x ** 2 for x in nums if x % 2 == 0]
+print(even_squares)  # Prints "[0, 4, 16]"
+
+print()
+print()
