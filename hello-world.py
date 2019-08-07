@@ -94,3 +94,30 @@ d = {'person': 2, 'cat': 4, 'spider': 8}
 for animal, legs in d.items():
     print('A %s has %d legs' % (animal, legs))
 # Prints "A person has 2 legs", "A cat has 4 legs", "A spider has 8 legs"
+
+print()
+# A tuple is an (immutable) ordered list of values.
+# A tuple is in many ways similar to a list; one of the most important differences is
+# that tuples can be used as keys in dictionaries and as elements of sets,
+# while lists cannot. Here is a trivial example:
+e = {(x, x+1): x for x in range(10)}
+print(e)
+
+
+class Greeter(object):
+
+    # Constructor
+    def __init__(self, name):
+        self.name = name  # Create an instance variable
+
+    # Instance method
+    def greet(self, loud=False):
+        if loud:
+            print('HELLO, %s!' % self.name.upper())
+        else:
+            print('Hello, %s' % self.name)
+
+
+g = Greeter('Fred')  # Construct an instance of the Greeter class
+g.greet()            # Call an instance method; prints "Hello, Fred"
+g.greet(loud=True)   # Call an instance method; prints "HELLO, FRED!"
