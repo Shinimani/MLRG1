@@ -33,3 +33,22 @@ print(a[bool_idx])  # Prints "[3 4 5 6]"
 
 # We can do all of the above in a single concise statement:
 print(a[a > 2])     # Prints "[3 4 5 6]"
+
+print()
+print()
+v = np.array([1, 0, 1])
+vv = np.tile(v, (4, 1))   # Stack 4 copies of v on top of each other
+print(vv)                 # Prints "[[1 0 1]
+
+
+print()
+print()
+x = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])
+v = np.array([1, 0, 1])
+y = x + v  # Add v to each row of x using broadcasting
+print(y)
+
+#The line y = x + v works even though x has shape (4, 3)
+# and v has shape (3,) due to broadcasting; this line works
+# as if v actually had shape (4, 3), where each row was a copy of v, and the sum was performed elementwise.
+
