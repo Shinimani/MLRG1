@@ -4,50 +4,31 @@ import sys
 
 trainfile = sys.argv[1]
 testfile = sys.argv[2]
-testpred = sys.argv[3]
-
+testpredfile = sys.argv[3]
+np.random.seed(0)
 trainD = np.array(pd.read_csv(trainfile, header=None, delimiter=','))
 print(trainD.shape)
-
-
-# trainX = trainD[:,:(trainD.shape[1] - 1)]
-# trainY = trainD[:,(trainD.shape[1]-1)]
-
-# print(trainX.shape)
-# print(trainY.shape)
-
-# train0 = trainD[trainD[:,-1] == 0]
-# train1 = trainD[trainD[:,-1] == 1]
-# train2 = trainD[trainD[:,-1] == 2]
-# train3 = trainD[trainD[:,-1] == 3]
-# train4 = trainD[trainD[:,-1] == 4]
-# train5 = trainD[trainD[:,-1] == 5]
-# train6 = trainD[trainD[:,-1] == 6]
-# train7 = trainD[trainD[:,-1] == 7]
-# train8 = trainD[trainD[:,-1] == 8]
-# train9 = trainD[trainD[:,-1] == 9]
-# print(train6[0:10,:])
 
 
 # this class is of binary classification
 class SVMbin():
     def __init__(self, x=np.empty((1, 1)), iterations=100, lambda1=1):
-        X = x
+        # X = x
         self.iterations = iterations
         self.lambda1 = lambda1
         # here, Xb contains the 784 columns of X, and the final column is 1, for the bias term
-        self.Xb = np.ones((X.shape[0], X.shape[1]))
-        self.Xb[:, :-1] = X[:, :-1]
+        self.Xb = np.ones((x.shape[0], x.shape[1]))
+        self.Xb[:, :-1] = x[:, :-1]
         # uniq contains the 2 unique values of X[:,-1]
-        self.uniq = np.unique(X[:, -1])
+        self.uniq = np.unique(x[:, -1])
 
-        def f(x):
-            if x == self.uniq[0]:
+        def f(z):
+            if z == self.uniq[0]:
                 return 1
             else:
                 return -1
 
-        self.Y = np.array([f(xi) for xi in X[:, -1]])
+        self.Y = np.array([f(xi) for xi in x[:, -1]])
 
         # print(self.Y[-50:-1])
         self.w = np.zeros((1, self.Xb.shape[1]))
@@ -73,6 +54,8 @@ class SVMbin():
 
             eta = 1 / (self.lambda1 * i)
             self.w = (1 - eta * self.lambda1) * self.w + (eta / k) * sum
+
+        del self.Xb
 
         # return w
 
@@ -149,6 +132,7 @@ class SVMmulti():
 
                 temp.train(k=k)
                 self.models[i][j - i - 1] = temp
+        del self.trainD
 
     def predict(self, X):
         predictions = np.empty(shape=(X.shape[0], 45), dtype=int)
@@ -174,8 +158,8 @@ class SVMmulti():
 # print(a3.shape)
 
 
-model = SVMmulti(trainD=trainD)
-model.train(k=30)
+model = SVMmulti(trainD=trainD, iterations=500)
+model.train(k=70)
 # trpreds = trial.predict(X=trainD)
 # print(accuracyCalc(trainD[:,-1],trpreds))
 
@@ -193,4 +177,4 @@ print(testpred.shape)
 
 # print(accuracyCalc(testLabels,testpred))
 
-np.savetxt(testpred, testpred)
+np.savetxt(testpredfile, testpred)
