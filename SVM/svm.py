@@ -55,6 +55,8 @@ class SVMbin():
             eta = 1 / (self.lambda1 * i)
             self.w = (1 - eta * self.lambda1) * self.w + (eta / k) * sum
 
+
+
         del self.Xb
 
         # return w
